@@ -55,7 +55,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public static void main(String[] args) {
 
-        BigNumber bn = new BigNumber("-1123314a1235135134");
+        BigNumber bn = new BigNumber("-11233141235135134");
         // test
     }
 
