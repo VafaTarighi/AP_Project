@@ -1,7 +1,5 @@
 package bignumbers;
 
-import java.math.BigInteger;
-
 public class BigNumber implements Comparable<BigNumber> {
 
     private int sign;
@@ -43,7 +41,6 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public static void main(String[] args) {
 
-        BigInteger bi = new BigInteger("-1234567891011121314151617181920212223");
         BigNumber bn = new BigNumber("-1123314a1235135134");
 
     }
