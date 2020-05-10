@@ -1,5 +1,7 @@
 package bignumbers;
 
+import java.math.BigInteger;
+
 public class BigNumber implements Comparable<BigNumber> {
 
     private static final boolean POSITIVE = true;
