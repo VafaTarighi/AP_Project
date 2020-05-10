@@ -15,6 +15,8 @@ public class BigNumber implements Comparable<BigNumber> {
     private final String number;
 
     public BigNumber(String val) {
+        if (val == null || val.length() == 0)
+            throw new NumberFormatException("Zero length BigNumber");
 
         boolean sign;
         val = val.toString();
@@ -112,7 +114,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public static void main(String[] args) {
 
-        BigNumber bn = new BigNumber("-11233141235135134");
+        BigNumber bn = new BigNumber("");
         System.out.println(bn.toString());
 
         // test 2
