@@ -1,6 +1,7 @@
 package bignumbers;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class BigNumber implements Comparable<BigNumber> {
 
@@ -11,9 +12,13 @@ public class BigNumber implements Comparable<BigNumber> {
 
     private final byte[] digits;
 
+    private final String number;
+
     public BigNumber(String val) {
 
         boolean sign;
+        val = val.toString();
+
 
         if (val.charAt(0) == '-') {
             val = val.substring(1);
@@ -49,14 +54,44 @@ public class BigNumber implements Comparable<BigNumber> {
         }
 
 
-        digits = null; //temporary assignment
-        this.sign = false; //temporary assignment
+        // remove leading zeros like 00091
+        val = val.replaceAll("^0+","");
+        if(val.length() == 0){
+            val = "0";
+            sign = BigNumber.POSITIVE;
+        }
+
+
+
+
+
+        this.sign = sign; //temporary assignment
+
+        int valLength = val.length();
+        digits = new byte[valLength];
+        StringBuilder builder = new StringBuilder();
+        for (int i=0;i<valLength;i++){
+            digits[i] = (byte)(val.charAt(valLength - i - 1) - '0');
+            builder.append(digits[i]);
+        }
+        builder.append(sign ? "" : "-");
+        builder.reverse();
+
+        this.number = builder.toString();
+
+
+
+    }
+
+    @Override
+    public String toString() {
+        return this.number;
     }
 
     public static void main(String[] args) {
 
         BigNumber bn = new BigNumber("-11233141235135134");
-        // test
+        System.out.println(bn.toString());
 
         // test 2
     }
