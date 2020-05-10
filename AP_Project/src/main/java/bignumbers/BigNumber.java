@@ -2,9 +2,12 @@ package bignumbers;
 
 public class BigNumber implements Comparable<BigNumber> {
 
-    private int sign;
+    private static final boolean POSITIVE = true;
+    private static final boolean NEGATIVE = false;
 
-    private byte[] digits;
+    private final boolean sign;
+
+    private final byte[] digits;
 
     public BigNumber(String val) {
 
