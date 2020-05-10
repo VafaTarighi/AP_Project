@@ -13,13 +13,17 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public BigNumber(String val) {
 
-        sign = 1;
+
         if (val.charAt(0) == '-') {
             val = val.substring(1);
-            sign = -1;
+            sign = BigNumber.NEGATIVE;
         }
         else if (val.charAt(0) == '+') {
             val = val.substring(1);
+            sign = BigNumber.POSITIVE;
+        }
+        else {
+            sign = BigNumber.POSITIVE;
         }
 
         if (val.length() == 0)
@@ -42,6 +46,9 @@ public class BigNumber implements Comparable<BigNumber> {
 
             throw new NumberFormatException(message.toString());
         }
+
+
+        digits = null; //temporary assignment
     }
 
     public static void main(String[] args) {
