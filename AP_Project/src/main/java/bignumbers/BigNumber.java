@@ -53,6 +53,28 @@ public class BigNumber implements Comparable<BigNumber> {
         this.sign = false; //temporary assignment
     }
 
+
+
+
+    public BigNumber add(BigNumber val) {
+        throw new UnsupportedOperationException();
+    }
+
+    public BigNumber subtract(BigNumber val) {
+        throw new UnsupportedOperationException();
+    }
+
+    public BigNumber multiply(BigNumber val) {
+        throw new UnsupportedOperationException();
+    }
+
+    public BigNumber divide(BigNumber val) {
+        throw new UnsupportedOperationException();
+    }
+
+
+
+
     public static void main(String[] args) {
 
         BigNumber bn = new BigNumber("-11233141235135134");
