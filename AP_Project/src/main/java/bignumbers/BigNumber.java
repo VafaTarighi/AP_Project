@@ -13,6 +13,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public BigNumber(String val) {
 
+        boolean sign;
 
         if (val.charAt(0) == '-') {
             val = val.substring(1);
@@ -49,6 +50,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
 
         digits = null; //temporary assignment
+        this.sign = false; //temporary assignment
     }
 
     public static void main(String[] args) {
