@@ -175,7 +175,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
         boolean resultSign = (sign == val.sign)? BigNumber.POSITIVE : BigNumber.NEGATIVE;
         //Karatsuba Multiplication Algorithm
-        return karatsubaMultiply(this.abs(), val.abs());
+        return new BigNumber(karatsubaMultiply(this.abs(), val.abs()).digits, resultSign);
 
     }
 
@@ -223,39 +223,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public static void main(String[] args) {
 
-//        BigNumber a = new BigNumber("1234");
-//        BigNumber b = new BigNumber("1234");
-//        BigNumber c = new BigNumber("-1234");
-//        BigNumber d = new BigNumber("+1234");
-//        BigNumber e = new BigNumber("00000001234");
-//        BigNumber f = new BigNumber("-000001234");
-//        BigNumber g = new BigNumber("120000034");
-//        BigNumber h = new BigNumber("220000034");
 
-//        System.out.println(a.compareTo(b)); // 0
-//        System.out.println(a.compareTo(c)); // 1
-//        System.out.println(c.compareTo(a)); // -1
-//        System.out.println(a.compareTo(d)); // 0
-//        System.out.println(a.compareTo(e)); // 0
-//        System.out.println(e.compareTo(f)); // 1
-//        System.out.println(f.compareTo(e)); // -1
-//        System.out.println(g.compareTo(a)); // 1
-//        System.out.println(g.compareTo(h)); // -1
-
-//        BigNumber i = new BigNumber("--123");
-//        BigNumber j = new BigNumber(" 123");
-//        BigNumber k = new BigNumber("1+");
-//        BigNumber l = new BigNumber("12 34");
-//        BigNumber m = new BigNumber("12b34");
-//        BigNumber n = new BigNumber("12-34");
-//        BigNumber o = new BigNumber("12~34");
-//        BigNumber p = new BigNumber("1234 ");
-//        BigNumber q = new BigNumber("");
-//        BigNumber r = new BigNumber("+");
-//        BigNumber s = new BigNumber("-");
-//        BigNumber t = new BigNumber("+ ");
-//        BigNumber u = new BigNumber(null);
-//        BigNumber v = new BigNumber("00+00");
 
 
 //        BigNumber bg1=  new BigNumber("147");
@@ -272,9 +240,11 @@ public class BigNumber implements Comparable<BigNumber> {
 //        s2 = s2.replaceAll("\\D", "0");
 //        BigInteger bi2 = new BigInteger(s2);
 //        System.out.println(bi1.multiply(bi2));
-        int n = 99999;
-        System.out.println(new BigInteger(""+n).multiply(new BigInteger(""+n)));
-        System.out.println(n*n);
+//        int n = 99999;
+//        System.out.println(new BigInteger(""+n).multiply(new BigInteger(""+n)));
+//        System.out.println(n*n);
+
+        BigNumber a = new BigNumber("5678");
 
     }
 
