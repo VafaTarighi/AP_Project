@@ -25,10 +25,10 @@ public class BigNumber implements Comparable<BigNumber> {
         this.digits = digits;
         this.sign = sign;
         StringBuilder builder = new StringBuilder();
-        for (int i=digits.length-1;i>=0;i--){
+        builder.append(sign ? "" : "-");
+        for (int i = digits.length - 1; i >= 0; i--){
             builder.append(digits[i]);
         }
-        builder.append(sign ? "" : "-");
 
         this.number = builder.toString();
     }
@@ -135,8 +135,14 @@ public class BigNumber implements Comparable<BigNumber> {
 
 
         // different signs
+
+
         BigNumber c1 = this.abs();
         BigNumber c2 = val.abs();
+
+        if (c1.compareTo(c2) == 0)
+            return ZERO;
+
         int len1 = c1.digits.length;
         int len2 = c2.digits.length;
         BigNumber tmp;
@@ -262,7 +268,9 @@ public class BigNumber implements Comparable<BigNumber> {
 //        BigInteger bigIb = new BigInteger(b);
 //        BigInteger resI = bigIa.multiply(bigIb);
 //        System.out.println(resI.toString());
-        System.out.println(new BigNumber("1110").add(new BigNumber("-111")));
+
+        System.out.println(new BigNumber("123456779").add(new BigNumber("-123456789")));
+        System.out.println(new BigInteger("123456779").add(new BigInteger("-123456789")));
     }
 
     @Override
