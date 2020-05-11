@@ -1,7 +1,9 @@
 package bignumbers;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class BigNumber implements Comparable<BigNumber> {
 
@@ -27,7 +29,6 @@ public class BigNumber implements Comparable<BigNumber> {
             builder.append(digits[i]);
         }
         builder.append(sign ? "" : "-");
-        builder.reverse();
 
         this.number = builder.toString();
     }
@@ -86,15 +87,14 @@ public class BigNumber implements Comparable<BigNumber> {
 
         this.sign = sign; //temporary assignment
 
-        int valLength = val.length();
-        digits = new byte[valLength];
+        int length = val.length();
+        digits = new byte[length];
         StringBuilder builder = new StringBuilder();
-        for (int i=valLength-1;i>=0;i--){
-            digits[i] = (byte)(val.charAt(i) - '0');
-            builder.append(digits[i]);
-        }
         builder.append(sign ? "" : "-");
-        builder.reverse();
+        for (int i = 0; i < length; i++) {
+            digits[i] = (byte) (val.charAt(length - (i + 1)) - '0');
+            builder.append(val.charAt(i));
+        }
 
         this.number = builder.toString();
 
@@ -117,9 +117,9 @@ public class BigNumber implements Comparable<BigNumber> {
         boolean sign;
         if(this.sign == val.sign){
             sign = this.sign;
-            for(int i=this.digits.length-1, j=val.digits.length-1;i>= 0 || j>=0;i--,j--){
-                p = (i>=0) ? this.digits[i] : 0;
-                p+= (j>=0) ? val.digits[j] : 0;
+            for(int i = 0, j = 0; i < digits.length || j < val.digits.length; i++, j++){
+                p = (i < digits.length) ? this.digits[i] : 0;
+                p+= (j < val.digits.length) ? val.digits[j] : 0;
                 p+= carry;
                 builder.append(p%10);
                 carry = p/10;
@@ -137,6 +137,8 @@ public class BigNumber implements Comparable<BigNumber> {
         // different signs
         BigNumber c1 = this.abs();
         BigNumber c2 = val.abs();
+        int len1 = c1.digits.length;
+        int len2 = c2.digits.length;
         BigNumber tmp;
         if (c1.compareTo(c2) >= 0) {
             sign = this.sign;
@@ -147,21 +149,35 @@ public class BigNumber implements Comparable<BigNumber> {
             c2 = tmp;
         }
 
-        int index = 0;
-        byte[] c1digits = Arrays.copyOf(c1.digits,c1.digits.length);
-        for (int i = c2.digits.length - 1, j = c1digits.length - 1; i >= 0; i--, j--) {
-            c1digits[j] -= c2.digits[i];
-            if(c1digits[j] < 0){
-                c1digits[j] += 10;
-                index = j - 1;
-                while (c1digits[index] == 0) {
-                    c1digits[index] += 10;
-                }
-                c1digits[index]--;
-            }
-        }
-        return  new BigNumber(c1digits,sign);
+        int sub;
+        int cr = 0;
+        ArrayList<Byte> result = new ArrayList<Byte>();
 
+        for (int i = 0, j = 0; i < len1 || j < len2; i++, j++) {
+            if (j < len2)
+                sub = (c1.digits[i] - c2.digits[j] + cr);
+            else {
+                sub = c1.digits[i] + cr;
+            }
+
+            if (sub < 0) {
+                sub += 10;
+                cr = -1;
+            }
+            else cr = 0;
+
+            result.add((byte) sub);
+        }
+
+        while (result.get(result.size() - 1) == 0)
+            result.remove(result.size() - 1);
+
+        byte[] ans = new byte[result.size()];
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = result.get(i);
+        }
+
+        return  new BigNumber(ans ,sign);
 
     }
 
@@ -233,19 +249,20 @@ public class BigNumber implements Comparable<BigNumber> {
 //        System.out.println(new BigInteger(""+n).multiply(new BigInteger(""+n)));
 //        System.out.println(n*n);
 
-//        String a = "1234567891011121314151617181920";
-        String a = "12345";
-//        String b = "2019181716151413121110987654321";
-        String b = "56789";
-        BigNumber bigNa = new BigNumber(a);
-        BigNumber bigNb = new BigNumber(b);
-        BigNumber res = bigNa.multiply(bigNb);
-        System.out.println(res.toString());
-
-        BigInteger bigIa = new BigInteger(a);
-        BigInteger bigIb = new BigInteger(b);
-        BigInteger resI = bigIa.multiply(bigIb);
-        System.out.println(resI.toString());
+////        String a = "1234567891011121314151617181920";
+//        String a = "12345";
+////        String b = "2019181716151413121110987654321";
+//        String b = "56789";
+//        BigNumber bigNa = new BigNumber(a);
+//        BigNumber bigNb = new BigNumber(b);
+//        BigNumber res = bigNa.multiply(bigNb);
+//        System.out.println(res.toString());
+//
+//        BigInteger bigIa = new BigInteger(a);
+//        BigInteger bigIb = new BigInteger(b);
+//        BigInteger resI = bigIa.multiply(bigIb);
+//        System.out.println(resI.toString());
+        System.out.println(new BigNumber("1110").add(new BigNumber("-111")));
     }
 
     @Override
