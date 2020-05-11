@@ -181,35 +181,34 @@ public class BigNumber implements Comparable<BigNumber> {
 
     private BigNumber karatsubaMultiply(BigNumber x, BigNumber y) {
         //base case
-        if (x.digits.length > 5 && y.digits.length > 5) {
+        if (x.digits.length < 5 && y.digits.length < 5) {
             int xInt = Integer.parseInt(x.number);
             int yInt = Integer.parseInt(y.number);
 
             return new BigNumber("" + (xInt * yInt));
         }
 
-        BigNumber result;
-
         int lenX = x.digits.length; // 1234 56789 len 9
         int lenY = y.digits.length;//  0000 00123 len 3
         int n = Math.max(lenX, lenY);
         String fsn = "%0" + n + "d";
+        String fs = "%0" + (n/2) + "d";
+        String nZero = String.format(fsn, 0);
+        String hnZero = String.format(fs, 0);
 
-        BigNumber a = new BigNumber(String.format(fsn, x.number).substring(n/2));
-        BigNumber b = new BigNumber(String.format(fsn, x.number).substring(0, n/2));
+        String formattedX = nZero.substring(lenX, n) + x.number;
+        BigNumber a = new BigNumber(formattedX.substring(0, n/2));
+        BigNumber b = new BigNumber(formattedX.substring(n/2));
 
-        BigNumber c = new BigNumber(String.format(fsn, y.number).substring(n/2));
-        BigNumber d = new BigNumber(String.format(fsn, y.number).substring(0, n/2));
+        String formattedY = nZero.substring(lenY, n) + y.number;
+        BigNumber c = new BigNumber(formattedY.substring(0, n/2));
+        BigNumber d = new BigNumber(formattedY.substring(n/2));
 
         // x*y = 10^(n)*(ac) + 10^(n/2)*(ad + bc) + bd
         BigNumber ac = karatsubaMultiply(a, c);
         BigNumber bd = karatsubaMultiply(b, d);
         BigNumber aPbcPd = karatsubaMultiply(a.add(b), c.add(d));
         BigNumber adPbc = aPbcPd.subtract(ac.add(bd));
-
-        String fs = "%0" + (n/2) + "d";
-        String nZero = String.format(fsn, 0);
-        String hnZero = String.format(fs, 0);
 
         return (new BigNumber(ac.number + nZero)).add(new BigNumber(adPbc.number + hnZero)).add(new BigNumber(bd.number));
     }
@@ -223,16 +222,6 @@ public class BigNumber implements Comparable<BigNumber> {
 
     public static void main(String[] args) {
 
-
-
-
-//        BigNumber bg1=  new BigNumber("147");
-//        BigNumber bg2 = new BigNumber("-9");
-//        System.out.printf("(%s) + (%s) = %s\n",bg1.toString(),bg2.toString(),bg1.add(bg2));
-//        System.out.printf("(%s) + (%s) = %s\n",bg2.toString(),bg1.toString(),bg2.add(bg1));
-//        System.out.printf("(%s) - (%s) = %s\n",bg1.toString(),bg2.toString(),bg1.subtract(bg2));
-//        System.out.printf("(%s) - (%s) = %s\n",bg2.toString(),bg1.toString(),bg2.subtract(bg1));
-
 //        String s1 = "8517309817418905713409856324870561309587312513458y134876157834651873456391785613875632849756395876435872652438795689743265184975621389756389457658913659834756y134897564871605789563045610345671056341708561y3480756134805761304857657861438057648157365740356843765170348563287045643870156438756382176587341651849623846021893472103895631490856735783180563218075689437561308563297546380563145610356739847563247856340856712398576324056732489756238497563786518051875346598723645897546257823569618032765y7341085612037029137561023561705358947563248956347856985612809326401895109856984756234857623489576103845632748562398475608457623984756324785608457619845761234985762348975634280756329857639845679382457618957632148761481746389231764872165871237456981753681923476589345765689345618756891765389274612983576289357689215762893457602156056013560560150000000005780587134573240857623984563485763187457634897568561871246812346783274563478568745368231479847156198576984387019357130294578431095234089576149057823408572340895710457670471309856130847651";
 //        s1 = s1.replaceAll("\\D", "0");
 //        BigInteger bi1 = new BigInteger(s1);
@@ -244,8 +233,19 @@ public class BigNumber implements Comparable<BigNumber> {
 //        System.out.println(new BigInteger(""+n).multiply(new BigInteger(""+n)));
 //        System.out.println(n*n);
 
-        BigNumber a = new BigNumber("5678");
+//        String a = "1234567891011121314151617181920";
+        String a = "12345";
+//        String b = "2019181716151413121110987654321";
+        String b = "56789";
+        BigNumber bigNa = new BigNumber(a);
+        BigNumber bigNb = new BigNumber(b);
+        BigNumber res = bigNa.multiply(bigNb);
+        System.out.println(res.toString());
 
+        BigInteger bigIa = new BigInteger(a);
+        BigInteger bigIb = new BigInteger(b);
+        BigInteger resI = bigIa.multiply(bigIb);
+        System.out.println(resI.toString());
     }
 
     @Override
