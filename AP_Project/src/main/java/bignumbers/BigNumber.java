@@ -1,11 +1,9 @@
 package bignumbers;
 
-import com.sun.corba.se.spi.extension.ZeroPortPolicy;
+
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class BigNumber implements Comparable<BigNumber> {
 
@@ -20,7 +18,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     private final byte[] digits;
 
-    private String number;
+    private final String number;
 
 
     private BigNumber(byte[] digits, boolean sign){
