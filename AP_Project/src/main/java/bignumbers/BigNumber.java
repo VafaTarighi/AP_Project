@@ -405,7 +405,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(digits);
+        return number.hashCode();
     }
 }
 class Util{
