@@ -4,6 +4,7 @@ package bignumbers;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class BigNumber implements Comparable<BigNumber> {
 
@@ -419,6 +420,20 @@ public class BigNumber implements Comparable<BigNumber> {
             return this;
         }
         return new BigNumber(this.digits, BigNumber.POSITIVE);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BigNumber bigNumber = (BigNumber) o;
+        return sign == bigNumber.sign &&
+                Arrays.equals(digits, bigNumber.digits);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(digits);
     }
 }
 class Util{
