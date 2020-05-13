@@ -64,6 +64,10 @@ public class BigNumber implements Comparable<BigNumber> {
             return new BigNumber(digits, BigNumber.NEGATIVE);
     }
 
+    public static BigNumber fromByteArray(byte[] digits) {
+        return fromByteArray(digits, Sign.POSITIVE);
+    }
+
     public static BigNumber fromIntArray(int[] digits, Sign sign) {
         if (digits == null || sign == null)
             throw new NullPointerException();
@@ -80,6 +84,10 @@ public class BigNumber implements Comparable<BigNumber> {
             return new BigNumber(byteDigits, BigNumber.POSITIVE);
         else
             return new BigNumber(byteDigits, BigNumber.NEGATIVE);
+    }
+
+    public static BigNumber fromIntArray(int[] digits) {
+        return fromIntArray(digits, Sign.POSITIVE);
     }
 
 
