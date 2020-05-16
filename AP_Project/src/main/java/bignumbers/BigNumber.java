@@ -257,6 +257,16 @@ public class BigNumber implements Comparable<BigNumber> {
         if (this.compareTo(ZERO) == 0 || val.compareTo(ZERO) == 0)
             return ZERO;
 
+        if (this.compareTo(ONE) == 0)
+            return val;
+        if (val.compareTo(ONE) == 0)
+            return this;
+
+        if (this.compareTo(NEGATIVE_ONE) == 0)
+            return new BigNumber(val.digits, !val.sign);
+        if (val.compareTo(NEGATIVE_ONE) == 0)
+            return new BigNumber(digits, !sign);
+
         boolean resultSign = (sign == val.sign)? BigNumber.POSITIVE : BigNumber.NEGATIVE;
         String result = (resultSign == NEGATIVE ? "-" : "") +
                 multiplyAlgorithm(this.abs().toString(), val.abs().toString());
