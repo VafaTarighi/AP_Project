@@ -1,6 +1,5 @@
 package bignumbers;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 public class BigNumber implements Comparable<BigNumber> {
@@ -18,7 +17,7 @@ public class BigNumber implements Comparable<BigNumber> {
 
     private final String number;
 
-
+    //// Static Factory Methods
     public static BigNumber fromString(String val) {
         return new BigNumber(val);
     }
@@ -91,7 +90,7 @@ public class BigNumber implements Comparable<BigNumber> {
     }
 
     
-
+    //// Constructors
     private BigNumber(byte[] digits, boolean sign){
         this.digits = digits;
         this.sign = sign;
@@ -172,14 +171,8 @@ public class BigNumber implements Comparable<BigNumber> {
 
     }
 
-    @Override
-    public String toString() {
-        return this.number;
-    }
 
-
-
-
+    //// add, subtract, multiply & divide operation methods
     public BigNumber add(BigNumber val) {
         StringBuilder builder = new StringBuilder();
         int p;
@@ -255,7 +248,6 @@ public class BigNumber implements Comparable<BigNumber> {
         return new BigNumber(Arrays.copyOfRange(c1digits,0,c1digits.length-count),sign);
 
     }
-
 
     public BigNumber subtract(BigNumber val) {
         return this.add(new BigNumber(val.digits,!val.sign));
@@ -372,6 +364,14 @@ public class BigNumber implements Comparable<BigNumber> {
 
     }
 
+    //// abs & BigNumber comparison methods
+    public BigNumber abs(){
+        return this.sign == BigNumber.POSITIVE ? this : new BigNumber(this.digits, BigNumber.POSITIVE);
+    }
+
+    public boolean isGreaterThan(BigNumber val){
+        return (this.compareTo(val) > 0);
+    }
 
     @Override
     public int compareTo(BigNumber val) {
@@ -400,16 +400,12 @@ public class BigNumber implements Comparable<BigNumber> {
         return digits.length > val.digits.length ? 1 : -1;
     }
 
-    public BigNumber abs(){
-        return this.sign == BigNumber.POSITIVE ? this : new BigNumber(this.digits, BigNumber.POSITIVE);
+    @Override
+    public String toString() {
+        return this.number;
     }
 
-    public boolean isGreaterThan(BigNumber val){
-        return (this.compareTo(val) > 0);
-    }
-
-
-
+    //// equals & hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -424,6 +420,7 @@ public class BigNumber implements Comparable<BigNumber> {
         return number.hashCode();
     }
 }
+
 class Util{
     public static int compare(String s1, String s2){
         int len1 = s1.length();
