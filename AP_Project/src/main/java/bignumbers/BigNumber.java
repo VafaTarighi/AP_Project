@@ -1,6 +1,5 @@
 package bignumbers;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 public class BigNumber implements Comparable<BigNumber> {
@@ -284,20 +283,54 @@ public class BigNumber implements Comparable<BigNumber> {
             return Integer.toString(xInt * yInt);
         }
 
+        x = x.replaceAll("^0+","");
+        y = y.replaceAll("^0+","");
+        x = x.length() == 0 ? "0" : x;
+        y = y.length() == 0 ? "0" : y;
+
+        if (x.equals("0")) return "0";
+        if (y.equals("0")) return "0";
+
         int lenX = x.length(); // 1234 56789 len 9
         int lenY = y.length();//  0000 00123 len 3
-        int n = Math.max(lenX, lenY);
-        int m = n - n/2;
-        String nZero = String.format("%0" + n + "d", 0);
-        String Bm = String.format("%0" + m + "d", 0);
+//        int n = Math.max(lenX, lenY);
+//        int m = n - n/2;
+//        String nZero = String.format("%0" + n + "d", 0);
+//        String Bm = String.format("%0" + m + "d", 0);
+//
+//        String formattedX = nZero.substring(lenX, n) + x;
+//        String a = formattedX.substring(0, n/2);
+//        String b = formattedX.substring(n/2);
+//
+//        String formattedY = nZero.substring(lenY, n) + y;
+//        String c = formattedY.substring(0, n/2);
+//        String d = formattedY.substring(n/2);
+        int m;
+        String a, b, c, d;
+        m = Math.max(lenX, lenY)/2 + 1;
+        int posX = lenX - m;
+        int posY = lenY - m;
 
-        String formattedX = nZero.substring(lenX, n) + x;
-        String a = formattedX.substring(0, n/2);
-        String b = formattedX.substring(n/2);
+        if (posX > 0) {
+            a = x.substring(0, posX);
+            b = x.substring(posX);
+        } else {
+            a = "0";
+            b = x;
+        }
+        if (posY > 0) {
+            c = y.substring(0, posY);
+            d = y.substring(posY);
+        } else {
+            c = "0";
+            d = y;
+        }
 
-        String formattedY = nZero.substring(lenY, n) + y;
-        String c = formattedY.substring(0, n/2);
-        String d = formattedY.substring(n/2);
+        StringBuilder zeros = new StringBuilder();
+        for (int i = 0; i < m; i++) {
+            zeros.append('0');
+        }
+        String Bm = zeros.toString();
 
         // x*y = 10^(n)*(ac == z2) + 10^(n/2)*((ad + bc) == z1) + (bd == z0)
         String z2 = multiplyAlgorithm(a, c);
