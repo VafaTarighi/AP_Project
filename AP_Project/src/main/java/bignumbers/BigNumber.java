@@ -209,12 +209,12 @@ public class BigNumber implements Comparable<BigNumber> {
 
         BigNumber c1 = this.abs();
         BigNumber c2 = val.abs();
-
-        if (c1.compareTo(c2) == 0)
+        int cmp = c1.compareTo(c2);
+        if (cmp == 0)
             return ZERO;
 
         BigNumber tmp;
-        if (c1.compareTo(c2) >= 0) {
+        if (cmp > 0) {
             sign = this.sign;
         } else {
             sign = val.sign;
@@ -255,6 +255,7 @@ public class BigNumber implements Comparable<BigNumber> {
         return new BigNumber(Arrays.copyOfRange(c1digits,0,c1digits.length-count),sign);
 
     }
+
 
     public BigNumber subtract(BigNumber val) {
         return this.add(new BigNumber(val.digits,!val.sign));
