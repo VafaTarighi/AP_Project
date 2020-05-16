@@ -1,5 +1,6 @@
 package bignumbers;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class BigNumber implements Comparable<BigNumber> {
@@ -460,6 +461,12 @@ class Util{
 
     // s1 must be greater than s2
     public static String subtract(String s1, String s2){
+
+        s1 = s1.replaceAll("^0+","");
+        s2 = s2.replaceAll("^0+","");
+        s1 = s1.length() == 0 ? "0" : s1;
+        s2 = s2.length() == 0 ? "0" : s2;
+
         int len1 = s1.length();
         int len2 = s2.length();
         StringBuilder builder = new StringBuilder();
