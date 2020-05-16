@@ -90,6 +90,7 @@ public class BigNumber implements Comparable<BigNumber> {
         return fromIntArray(digits, Sign.POSITIVE);
     }
 
+    
 
     private BigNumber(byte[] digits, boolean sign){
         this.digits = digits;
@@ -401,6 +402,12 @@ public class BigNumber implements Comparable<BigNumber> {
     public BigNumber abs(){
         return this.sign == BigNumber.POSITIVE ? this : new BigNumber(this.digits, BigNumber.POSITIVE);
     }
+
+    public boolean isGreaterThan(BigNumber val){
+        return (this.compareTo(val) > 0);
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
