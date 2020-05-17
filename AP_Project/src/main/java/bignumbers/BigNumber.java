@@ -2,7 +2,7 @@ package bignumbers;
 
 import java.util.Arrays;
 
-public class BigNumber implements Comparable<BigNumber> {
+public class BigNumber extends Number implements Comparable<BigNumber> {
 
     private static final boolean POSITIVE = true;
     private static final boolean NEGATIVE = false;
@@ -105,7 +105,13 @@ public class BigNumber implements Comparable<BigNumber> {
     }
 
     private BigNumber(String val) {
-        if (val == null || val.length() == 0)
+//        if (val == null || val.length() == 0)
+//            throw new NumberFormatException("Zero length BigNumber");
+        if (val == null)
+            throw new NullPointerException();
+
+        val = val.trim();
+        if (val.length() == 0)
             throw new NumberFormatException("Zero length BigNumber");
 
         boolean sign;
