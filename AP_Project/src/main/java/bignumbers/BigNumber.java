@@ -105,8 +105,6 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
     }
 
     private BigNumber(String val) {
-//        if (val == null || val.length() == 0)
-//            throw new NumberFormatException("Zero length BigNumber");
         if (val == null)
             throw new NullPointerException();
 
@@ -157,9 +155,6 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
             val = "0";
             sign = BigNumber.POSITIVE;
         }
-
-
-
 
 
         this.sign = sign;
@@ -289,6 +284,7 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
             return Integer.toString(xInt * yInt);
         }
 
+        //removing leading zeros
         x = x.replaceAll("^0+","");
         y = y.replaceAll("^0+","");
         x = x.length() == 0 ? "0" : x;
@@ -298,19 +294,8 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
         if (y.equals("0")) return "0";
 
         int lenX = x.length(); // 1234 56789 len 9
-        int lenY = y.length();//  0000 00123 len 3
-//        int n = Math.max(lenX, lenY);
-//        int m = n - n/2;
-//        String nZero = String.format("%0" + n + "d", 0);
-//        String Bm = String.format("%0" + m + "d", 0);
-//
-//        String formattedX = nZero.substring(lenX, n) + x;
-//        String a = formattedX.substring(0, n/2);
-//        String b = formattedX.substring(n/2);
-//
-//        String formattedY = nZero.substring(lenY, n) + y;
-//        String c = formattedY.substring(0, n/2);
-//        String d = formattedY.substring(n/2);
+        int lenY = y.length(); // 0000 00123 len 3
+
         int m;
         String a, b, c, d;
         m = Math.max(lenX, lenY)/2 + 1;
@@ -338,7 +323,7 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
         }
         String Bm = zeros.toString();
 
-        // x*y = 10^(n)*(ac == z2) + 10^(n/2)*((ad + bc) == z1) + (bd == z0)
+        // x*y = 10^(2m)*(ac == z2) + 10^(m)*((ad + bc) == z1) + (bd == z0)
         String z2 = multiplyAlgorithm(a, c);
         String z0 = multiplyAlgorithm(b, d);
         String z1 = Util.subtract(multiplyAlgorithm(Util.sum(a, b), Util.sum(c, d)), Util.sum(z2, z0));
